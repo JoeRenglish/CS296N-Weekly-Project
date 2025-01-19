@@ -12,6 +12,9 @@ var connectionString = builder.Configuration.GetConnectionString("MySqlConnectio
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+builder.Services.AddTransient<IStoryRepository, StoryRepository>();
+builder.Services.AddTransient<ICharacterRepository, CharacterRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,5 +35,13 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider
+        .GetRequiredService<ApplicationDbContext>();
+    SeedData.Seed(dbContext);
+}
+
 
 app.Run();

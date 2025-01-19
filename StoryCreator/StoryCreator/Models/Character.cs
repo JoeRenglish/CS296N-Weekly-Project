@@ -2,10 +2,13 @@ namespace StoryCreator.Models;
 
 public class Character
 {
+    public int CharacterId { get; set; }
     public string? Name { get; set; }
     public int? Age { get; set; }
     public string? Gender { get; set; }
     public string? Birthday { get; set; }
     public string? Description { get; set; }
+    
+    public DateOnly Date { get; set; }
     public Story? Story { get; set; }
 }
