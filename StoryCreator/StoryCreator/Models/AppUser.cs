@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace StoryCreator.Models;
 
-public class AppUser
+public class AppUser : IdentityUser
 {
-    public int AppUserId { get; set; }
+  
     public string? Name { get; set; }
     public DateTime SignUpDate { get; set; }
 }

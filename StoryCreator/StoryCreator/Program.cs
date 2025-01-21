@@ -1,6 +1,9 @@
 using StoryCreator;
 using StoryCreator.Data;
+using StoryCreator.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddTransient<IStoryRepository, StoryRepository>();
 builder.Services.AddTransient<ICharacterRepository, CharacterRepository>();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -31,6 +38,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
@@ -40,7 +48,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider
         .GetRequiredService<ApplicationDbContext>();
-    SeedData.Seed(dbContext);
+    SeedData.Seed(dbContext, scope.ServiceProvider);
 }
 
 

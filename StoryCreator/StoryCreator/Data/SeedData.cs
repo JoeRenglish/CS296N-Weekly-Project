@@ -1,16 +1,21 @@
 using StoryCreator.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace StoryCreator.Data;
 
 public class SeedData
 {
-    public static void Seed(ApplicationDbContext context)
+    public static void Seed(ApplicationDbContext context, IServiceProvider provider)
     {
+        var userManager = provider.GetRequiredService<UserManager<AppUser>>();
+        
         if (!context.Stories.Any())
         {
-            AppUser user1 = new AppUser { Name = "Admin" };
-            context.AppUsers.Add(user1);
-            context.SaveChanges();
+            const string SECRET_PASSWORD = "Secret!123";
+            AppUser user1 = new AppUser { UserName = "Admin" };
+            var result = userManager.CreateAsync(user1, SECRET_PASSWORD);
+            
+           
             
             Story story1 = new Story
             {
