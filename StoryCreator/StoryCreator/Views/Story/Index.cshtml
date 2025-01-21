@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Story>
+
 @{
+    ViewData["Title"] = "Stories";
+}
+
+
+@if (Model.Count != 0)
+{
+    foreach (Story story in Model)
+    {
+        <p>
+            @story.Title <br/>
+            By @story.AppUser.Name <br/>
+            @story.StoryText <br/>
+            Published @story.Date <br/>
+        </p>
+        
+        <br/> <br/>
+    }
 }
