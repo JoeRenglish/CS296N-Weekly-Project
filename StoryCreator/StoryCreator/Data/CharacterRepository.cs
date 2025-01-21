@@ -15,7 +15,7 @@ public class CharacterRepository : ICharacterRepository
     public List<Character> GetCharacters()
     {
         var characters = _context.Characters
-            .Include(character => character.Story)
+            .Include(character => character.AppUser)
             .ToList();
         return characters;
     }
@@ -23,7 +23,7 @@ public class CharacterRepository : ICharacterRepository
     public Character GetCharacterById(int id)
     {
         var character = _context.Characters
-            .Include(character => character.Story)
+            .Include(character => character.AppUser)
             .SingleOrDefault(character => character.CharacterId == id);
         return character;
     }

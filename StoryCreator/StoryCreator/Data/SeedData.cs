@@ -15,7 +15,7 @@ public class SeedData
             Story story1 = new Story
             {
                 Title = "Story Test",
-                Author = user1,
+                AppUser = user1,
                 Date = DateOnly.Parse("10/23/1991"),
                 Series = "Test Series",
                 StoryText = "This is a test story."
@@ -29,7 +29,7 @@ public class SeedData
                 Gender = "Nonbinary",
                 Birthday = "10/23/1991",
                 Description = "Tall and awkward with long hair and a short beard.",
-                Story = story1
+                AppUser = user1
             };
             
             context.Characters.Add(character1);

@@ -10,5 +10,6 @@ public class Character
     public string? Description { get; set; }
     
     public DateOnly Date { get; set; }
+    public AppUser? AppUser { get; set; }
     public Story? Story { get; set; }
 }

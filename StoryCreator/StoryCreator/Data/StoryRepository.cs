@@ -17,7 +17,7 @@ public class StoryRepository : IStoryRepository
     public List<Story> GetStories()
     {
         var stories = _context.Stories
-            .Include(story => story.Author)
+            .Include(story => story.AppUser)
             .ToList();
         return stories;
     }
@@ -25,7 +25,7 @@ public class StoryRepository : IStoryRepository
     public Story GetStoryById(int id)
     {
         var story = _context.Stories
-            .Include(story => story.Author)
+            .Include(story => story.AppUser)
             .SingleOrDefault(story => story.StoryId == id);
         return story;
     }
