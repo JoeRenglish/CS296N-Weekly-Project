@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,7 +8,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StoryCreator.styles.css" asp-append-version="true" />
+    
 </head>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -30,9 +35,16 @@
                         </li>
                        
                     </ul>
-                    
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Account</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Log Out</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Log In</a>
-                    
+                    }
                 </div>
             </div>
         </nav>
