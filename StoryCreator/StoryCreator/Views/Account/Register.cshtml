@@ -1,0 +1,44 @@
+@model RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container d-flex justify-content-center">
+    <h1>Register</h1>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form method="post" asp-action="Register">
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">UserName</label>
+            <div class="col-sm-4">
+                <input asp-for="Username" class="form-control"></input>
+            </div>
+            <div class="col">
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Password</label>
+            <div class="col-sm-4">
+                <input type="password" asp-for="Password" class="form-control"></input>
+            </div>
+            <div class="col">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Confirm Password</label>
+            <div class="col-sm-4">
+                <input type="password" asp-for="ConfirmPassword" class="form-control"></input>
+            </div>
+            <div class="col">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col offset-md-2">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </form>
+</div>
