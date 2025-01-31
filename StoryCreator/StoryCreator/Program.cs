@@ -37,15 +37,19 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-app.UseAuthentication();
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 using (var scope = app.Services.CreateScope())
 {
+    await SeedUsers.CreateAdminUserAsync(scope.ServiceProvider);
     var dbContext = scope.ServiceProvider
         .GetRequiredService<ApplicationDbContext>();
     SeedData.Seed(dbContext, scope.ServiceProvider);

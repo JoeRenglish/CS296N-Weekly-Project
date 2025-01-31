@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace StoryCreator.Controllers;
 
 [Authorize(Roles = "Admin")]
+[Area("Admin")]
 public class UserController : Controller
 {
     private UserManager<AppUser> userManager;

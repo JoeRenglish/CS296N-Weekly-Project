@@ -12,7 +12,7 @@ public class SeedData
         if (!context.Stories.Any())
         {
             const string SECRET_PASSWORD = "Secret!123";
-            AppUser user1 = new AppUser { UserName = "Admin" };
+            AppUser user1 = new AppUser { UserName = "Bill" };
             var result = userManager.CreateAsync(user1, SECRET_PASSWORD);
             
            

@@ -82,5 +82,10 @@ public class AccountController : Controller
         return View(model);
     }
 
+    public ViewResult AccessDenied()
+    {
+        return View();
+    }
+
 
 }
