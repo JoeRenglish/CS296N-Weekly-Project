@@ -4,8 +4,8 @@ namespace StoryCreator.Data;
 
 public interface IStoryRepository
 {   
-    public List<Story> GetStories();
+    IQueryable<Story> Stories { get; }
     public Story GetStoryById(int id);
-    public int StoreStory(Story model);
+    public Task<int> StoreStoryAsync(Story model);
     
 }

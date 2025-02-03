@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StoryCreator.Data;
+using StoryCreator.Models;
 
 namespace StoryCreator.Controllers
 {
@@ -12,12 +14,14 @@ namespace StoryCreator.Controllers
             _repo = r;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var stories = _repo.GetStories();
+            List<Story> stories;
+            stories = await _repo.Stories.ToListAsync<Story>();
             return View(stories);
         }
 
+        /*
         public IActionResult Filter(string series, string title, string username)
         {
             var stories = _repo.GetStories()
@@ -28,6 +32,6 @@ namespace StoryCreator.Controllers
             return View("Index", stories);
 
         }
-
+*/
     }
 }

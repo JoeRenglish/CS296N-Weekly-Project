@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace StoryCreator.Controllers;
 
 [Authorize(Roles = "Admin")]
-[Area("Admin")]
+//[Area("Admin")]
 public class UserController : Controller
 {
     private UserManager<AppUser> userManager;
@@ -18,6 +18,7 @@ public class UserController : Controller
         roleManager = rManager;
     }
 
+   
     public async Task<IActionResult> Index()
     {
         List<AppUser> users = new List<AppUser>();

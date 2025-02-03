@@ -13,27 +13,34 @@ public class StoryRepository : IStoryRepository
         _context = appDbContext;
     }
 
-    
-    public List<Story> GetStories()
+    public IQueryable<Story> Stories
     {
-        var stories = _context.Stories
-            .Include(story => story.AppUser)
-            .ToList();
-        return stories;
+        get
+        {
+            return _context.Stories.Include(story => story.AppUser);
+
+        }
     }
+    
 
     public Story GetStoryById(int id)
     {
         var story = _context.Stories
             .Include(story => story.AppUser)
+            .Where(story => story.StoryId == id)
             .SingleOrDefault(story => story.StoryId == id);
         return story;
     }
+    
 
-    public int StoreStory(Story model)
+    public async Task<int>StoreStoryAsync(Story model)
     {
         model.Date = DateOnly.FromDateTime(DateTime.Today);
         _context.Stories.Add(model);
-        return _context.SaveChanges();
+        
+        Task<int> task = _context.SaveChangesAsync();
+        int result = await task;
+        
+        return result;
     }
 }
