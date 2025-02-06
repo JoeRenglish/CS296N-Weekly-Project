@@ -42,7 +42,7 @@
                             <a class="nav-link text-dark" asp-controller="User" asp-action="Index">Account Control</a>
                         }
 
-                        
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Story" asp-action="UserStories">Your Stories</a>
                         <form method="post" asp-action="Logout" asp-controller="Account">
                             <input type="submit" value="Log Out" class="btn btn-outline-dark" />
                             <span class="text-dark">@User.Identity.Name</span>
