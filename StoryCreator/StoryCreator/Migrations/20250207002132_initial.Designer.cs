@@ -11,8 +11,8 @@ using StoryCreator.Data;
 namespace StoryCreator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250121011338_Identity")]
-    partial class Identity
+    [Migration("20250207002132_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
