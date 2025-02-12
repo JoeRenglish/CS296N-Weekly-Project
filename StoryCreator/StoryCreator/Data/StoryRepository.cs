@@ -17,19 +17,18 @@ public class StoryRepository : IStoryRepository
     {
         get
         {
-            return _context.Stories.Include(story => story.AppUser);
+            return _context.Stories
+                .Include(s => s.AppUser)
+                .Include(s => s.Comments)
+                .ThenInclude(c => c.AppUser);
 
         }
     }
     
 
-    public Story GetStoryById(int id)
+    public async Task<Story?> GetStoryByIdAsync(int id)
     {
-        var story = _context.Stories
-            .Include(story => story.AppUser)
-            .Where(story => story.StoryId == id)
-            .SingleOrDefault(story => story.StoryId == id);
-        return story;
+        return await Stories.Where(s => s.StoryId == id).FirstOrDefaultAsync();
     }
     
 

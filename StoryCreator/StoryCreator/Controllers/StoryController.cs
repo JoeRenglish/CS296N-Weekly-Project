@@ -50,5 +50,27 @@ namespace StoryCreator.Controllers
                 select r).ToListAsync<Story>();
             return View(stories);
         }
+
+        [Authorize]
+        public IActionResult Comment(int storyId)
+        {
+            var commentVM = new CommentVM { StoryID = storyId };
+            return View(commentVM);
+        }
+
+        [HttpPost]
+        public async Task<RedirectToActionResult> Comment(CommentVM commentVM)
+        {
+            var comment = new Comment { Text = commentVM.Text };
+            if (_userManager != null)
+            {
+                comment.AppUser = await _userManager.GetUserAsync(User);
+                comment.AppUser.Name = comment.AppUser.UserName;
+            }
+            var story = await _repo.GetStoryByIdAsync(commentVM.StoryID);
+            story.Comments.Add(comment);
+            await _repo.StoreStoryAsync(story);
+            return RedirectToAction("Index", new { storyId = comment.AppUser.Id });
+        }
     }
 }
