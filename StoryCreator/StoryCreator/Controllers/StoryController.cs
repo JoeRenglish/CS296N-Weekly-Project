@@ -24,7 +24,14 @@ namespace StoryCreator.Controllers
             stories = await _repo.Stories.ToListAsync<Story>();
             return View(stories);
         }
-        
+
+        public async Task<IActionResult> Story(int id)
+        {
+            var story = await _repo.GetStoryByIdAsync(id);
+            return View(story);
+        }
+
+
         /*
         public IActionResult Filter(string series, string title, string username)
         {
@@ -36,7 +43,7 @@ namespace StoryCreator.Controllers
             return View("Index", stories);
 
         }
-*/
+    */
         [Authorize]
         public async Task<IActionResult> UserStories(Story model)
         {

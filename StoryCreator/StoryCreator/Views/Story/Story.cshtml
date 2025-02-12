@@ -1,0 +1,10 @@
+@model Story
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h1>@Model.Title</h1>
+<h3>By @Model.AppUser.UserName</h3>
+<h3>Series: @Model.Series</h3>
+<p>@Model.StoryText</p>

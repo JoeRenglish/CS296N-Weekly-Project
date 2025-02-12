@@ -12,8 +12,9 @@
         <p>
             @story.Title <br/>
             By @story.AppUser.UserName <br/>
-            @story.StoryText <br/>
             Published @story.Date <br/>
+            <a asp-controller="Story" asp-action="Story" asp-route-id="@story.StoryId">Read Story</a>
+            
         </p>
         
         <br/> <br/>
