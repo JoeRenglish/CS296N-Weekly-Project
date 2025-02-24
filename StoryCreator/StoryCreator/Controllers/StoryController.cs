@@ -61,23 +61,30 @@ namespace StoryCreator.Controllers
         [Authorize]
         public IActionResult Comment(int storyId)
         {
-            var commentVM = new CommentVM { StoryID = storyId };
+            var commentVM = new CommentVM { StoryId = storyId };
             return View(commentVM);
         }
 
         [HttpPost]
         public async Task<RedirectToActionResult> Comment(CommentVM commentVM)
         {
-            var comment = new Comment { Text = commentVM.Text };
+            var comment = new Comment { Text = commentVM.CommentText };
             if (_userManager != null)
             {
                 comment.AppUser = await _userManager.GetUserAsync(User);
-                comment.AppUser.Name = comment.AppUser.UserName;
+                
             }
-            var story = await _repo.GetStoryByIdAsync(commentVM.StoryID);
+            var story = await _repo.GetStoryByIdAsync(commentVM.StoryId);
             story.Comments.Add(comment);
             await _repo.StoreStoryAsync(story);
             return RedirectToAction("Index", new { storyId = comment.AppUser.Id });
+        }
+        
+        public IActionResult DeleteStory(int id)
+        {
+            _repo.DeleteStory(id);
+            return RedirectToAction("Index");
+
         }
     }
 }

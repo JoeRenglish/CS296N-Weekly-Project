@@ -2,6 +2,6 @@ namespace StoryCreator.Models;
 
 public class CommentVM
 {
-    public int StoryID { get; set; }
-    public string Text { get; set; } = String.Empty;
+    public int StoryId { get; set; }
+    public string CommentText { get; set; } = String.Empty;
 }

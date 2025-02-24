@@ -21,7 +21,6 @@ public class StoryRepository : IStoryRepository
                 .Include(s => s.AppUser)
                 .Include(s => s.Comments)
                 .ThenInclude(c => c.AppUser);
-
         }
     }
     
@@ -35,11 +34,19 @@ public class StoryRepository : IStoryRepository
     public async Task<int>StoreStoryAsync(Story model)
     {
         model.Date = DateOnly.FromDateTime(DateTime.Today);
-        _context.Stories.Add(model);
+        _context.Stories.Update(model);
         
         Task<int> task = _context.SaveChangesAsync();
         int result = await task;
         
         return result;
+    }
+
+    public int DeleteStory(int id)
+    {
+        Story story = GetStoryByIdAsync(id).Result;
+        _context.Stories.Remove(story);
+        return _context.SaveChanges();
+
     }
 }

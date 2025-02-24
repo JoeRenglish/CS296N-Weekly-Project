@@ -11,5 +11,6 @@ public class ApplicationDbContext : IdentityDbContext
     
     public DbSet<Story> Stories { get; set; }
     public DbSet<Character> Characters { get; set; }
+    public DbSet<StoryCreator.Models.Comment>? Comment { get; set; }
    
 }

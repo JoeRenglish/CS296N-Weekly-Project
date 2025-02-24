@@ -14,7 +14,7 @@
             @story.StoryText <br/>
             Published @story.Date <br/>
         </p>
-        
+        <a asp-controller="Story" asp-action="DeleteStory" asp-route-id="@story.StoryId">Delete Story</a>
         <br/> <br/>
     }
 }
