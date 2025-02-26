@@ -1,14 +1,16 @@
-﻿@{
+﻿@model Story
+
+@{
     ViewData["Title"] = "Write a Story";
 }
 <div class="d-flex justify-content-center">
     
-        <form class="form-control p-4">
-            <label for="title">Title</label>
-            <input type="text" name="title" class="form-control mb-2" placeholder="story title" style="max-width: 300px"/>
-            <label for="series">Series</label>
-            <input type="text" name="series" class="form-control mb-2" placeholder="name of series" style="max-width: 300px" />
-            <textarea name="story" class="form-control mb-2" placeholder="write your story" rows="5"></textarea>
+        <form method="post" class="form-control p-4">
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" type="text" class="form-control mb-2" placeholder="story title" style="max-width: 300px"/>
+            <label asp-for="Series">Series</label>
+            <input asp-for="Series" type="text" class="form-control mb-2" placeholder="name of series" style="max-width: 300px" />
+            <textarea asp-for="StoryText" class="form-control mb-2" placeholder="write your story" rows="5"></textarea>
             <button type="submit" class="btn btn-primary">Submit</button>
 
         </form>
