@@ -1,8 +1,11 @@
 @model Story
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
 
 @{
     ViewData["Title"] = Model.Title;
 }
+
 
 <h1>@Model.Title</h1>
 <h3>By @Model.AppUser.UserName</h3>
@@ -18,5 +21,12 @@
         <h3>@comment.AppUser.UserName</h3>
         <p>@comment.Date</p>
         <p>@comment.Text</p>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="Story" asp-action="DeleteStory" asp-route-id="@comment.StoryId">Delete Story</a>
+            }
+        }
     }
 }

@@ -69,6 +69,7 @@ namespace StoryCreator.Controllers
         public async Task<RedirectToActionResult> Comment(CommentVM commentVM)
         {
             var comment = new Comment { Text = commentVM.CommentText };
+            comment.Date = DateTime.Now;
             if (_userManager != null)
             {
                 comment.AppUser = await _userManager.GetUserAsync(User);
@@ -78,12 +79,13 @@ namespace StoryCreator.Controllers
             story.Comments.Add(comment);
             await _repo.StoreStoryAsync(story);
             return RedirectToAction("Index", new { storyId = comment.AppUser.Id });
+            
         }
         
         public IActionResult DeleteStory(int id)
         {
             _repo.DeleteStory(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("UserStories");
 
         }
     }
