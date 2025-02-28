@@ -11,8 +11,8 @@ using StoryCreator.Data;
 namespace StoryCreator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250207002132_initial")]
-    partial class initial
+    [Migration("20250228064718_initi")]
+    partial class initi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -258,6 +258,35 @@ namespace StoryCreator.Migrations
                     b.ToTable("Characters");
                 });
 
+            modelBuilder.Entity("StoryCreator.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("StoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("StoryId");
+
+                    b.ToTable("Comment");
+                });
+
             modelBuilder.Entity("StoryCreator.Models.Story", b =>
                 {
                     b.Property<int>("StoryId")
@@ -365,6 +394,23 @@ namespace StoryCreator.Migrations
                     b.Navigation("Story");
                 });
 
+            modelBuilder.Entity("StoryCreator.Models.Comment", b =>
+                {
+                    b.HasOne("StoryCreator.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoryCreator.Models.Story", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("StoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("StoryCreator.Models.Story", b =>
                 {
                     b.HasOne("StoryCreator.Models.AppUser", "AppUser")
@@ -372,6 +418,11 @@ namespace StoryCreator.Migrations
                         .HasForeignKey("AppUserId");
 
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("StoryCreator.Models.Story", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
